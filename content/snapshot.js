@@ -15,6 +15,9 @@
     return obj.SnapshotStorage;
   });
 
+  XPCOMUtils.defineLazyModuleGetter(jsm, 'Downloads',
+    'resource://gre/modules/Downloads.jsm');
+
   const prefs = jsm.utils.prefs;
 
   var ns = MOA.ns('ESS.Snapshot');
@@ -87,10 +90,35 @@
     }
   };
 
+  var  saveSilent = function(url){
+    dump("123");
+      var file = jsm.utils.prefs.getFile('savePosition',
+        Cc['@mozilla.org/file/directory_service;1']
+          .getService(Ci.nsIProperties)
+          .get('Desk', Ci.nsILocalFile)
+      );
+    dump("124");
+      var defaultFilename = "firefoxshot_"+ (new Date()).toISOString().replace(/:/g, '-') + '.png';
+      file.append(defaultFilename);
+    dump("125");
+    jsm.Downloads.createDownload({
+      source:url,
+      target:file.path
+    }).then(function(aDownload){
+      aDownload.start();
+    });
+    dump(file.path);
+  }
   var sendSnapshot = function(canvas, ctx) {
     var defaultAction = 'editor';
+    if(prefs.get('savesilent',true)){
+      defaultAction = 'saveSilent';
+    }
 
     switch(defaultAction) {
+      case 'saveSilent':
+        saveSilent(canvas.toDataURL('image/png','')); 
+        break;
       case 'local':
         saveDataToDisk(canvas.toDataURL('image/png', ''));
         break;

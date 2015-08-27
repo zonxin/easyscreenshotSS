@@ -1,7 +1,8 @@
-easyscreenshot
+easyscreenshot SS
 ==============
 
-Easy Screen Shot.
+easyscreenshot 改进版
+参考：<http://zonxin.github.io/post/2015/08/firefox-extension-easyscreenshot/>
 
 License
 ==========

@@ -26,6 +26,8 @@
       <preference id="pref-entirekey" name="extensions.easyscreenshot.hotkeys.entire.key" type="string"/>
       <preference id="pref-visiblemodifiers" name="extensions.easyscreenshot.hotkeys.visible.modifiers" type="string"/>
       <preference id="pref-visiblekey" name="extensions.easyscreenshot.hotkeys.visible.key" type="string"/>
+
+      <preference id="pref-saveSilent" name="extensions.easyscreenshot.savesilent" type="bool"/>
     </preferences>
     <stringbundle id="bundlePreferences" src="chrome://easyscreenshot/locale/easyscreenshot.properties"/>
 
@@ -202,5 +204,6 @@
         </menulist>
       </hbox>
     </groupbox>
+    <checkbox label="静默保存（立即打开文件夹选项失效）" preference="pref-saveSilent"/>
   </prefpane>
 </prefwindow>
